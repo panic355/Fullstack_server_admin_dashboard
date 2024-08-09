@@ -2,23 +2,21 @@ import React, { useMemo } from "react";
 import { Box, useTheme } from "@mui/material";
 import Header from "components/Header";
 import { ResponsiveLine } from "@nivo/line";
-import { useGetSalesQuery } from "state/api";
 
 const VirtualMachines = () => {
-  const { data } = useGetSalesQuery();
   const theme = useTheme();
 
   const [formattedData] = useMemo(() => {
-    if (!data) return [];
+    if (!null) return [];
 
     return [formattedData];
-  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [null]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="MONTHLY SALES" subtitle="Chart of monthlysales" />
       <Box height="75vh">
-        {data ? (
+        {null ? (
           <ResponsiveLine
             data={formattedData}
             theme={{

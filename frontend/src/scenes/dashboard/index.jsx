@@ -16,20 +16,30 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
+  Tooltip,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import OverviewChart from "components/OverviewChart";
 import { useGetDashboardQuery, useGetEntityQuery, useGetServiceQuery, useGetSystemQuery } from "state/api";
 import StatBox from "components/StatBox";
-import { ResponsiveLine } from '@nivo/line'
+import RealtimeGraph from 'components/RealtimeGraph';
+
+
+
 
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data: serviceData, isLoading: serviceIsLoading } = useGetServiceQuery();
-  const { data, isLoading } = useGetDashboardQuery();
+  const { data: DashData, isLoading: DashIsLoading } = useGetDashboardQuery();
   const { data: systemData, isLoading: systemIsLoading } = useGetSystemQuery();
 
+  const cpuNetworkSeries = [
+    { id: 'Upload', key: 'net_io_sent' },
+    { id: 'Download', key: 'net_io_recv' }
+  ];
+
+  const yAxisRange = { min: 0, max: 200 }
 
 
   const columnsDash = [
@@ -37,6 +47,11 @@ const Dashboard = () => {
       field: "unit",
       headerName: "Unit",
       flex: 1,
+      renderCell: (params) => (
+        <Tooltip title={params.value} arrow>
+          <span>{params.value.length > 20 ? `${params.value.substring(0, 20)}...` : params.value}</span>
+        </Tooltip>
+      ),
     },
     {
       field: "load",
@@ -57,6 +72,11 @@ const Dashboard = () => {
       field: "description",
       headerName: "Description",
       flex: 1,
+      renderCell: (params) => (
+        <Tooltip title={params.value} arrow>
+          <span>{params.value.length > 20 ? `${params.value.substring(0, 20)}...` : params.value}</span>
+        </Tooltip>
+      ),
     },
   ];
 
@@ -77,7 +97,7 @@ const Dashboard = () => {
             }}
           >
             <LockOutlined sx={{ mr: "10px" }} />
-            Autherize SUDO
+            Autherize SUDO - TODO
           </Button>
         </Box>
       </FlexBetween>
@@ -94,7 +114,7 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <StatBox
-          title="CPU Load"
+          title="CPU Load (TODO)"
           icon={
             <DeveloperBoardOutlined
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -102,12 +122,9 @@ const Dashboard = () => {
           }
         />
         <StatBox
-          title="Network traffic"
-          //value={data }
-          increase="+43%"
-          description="Upload/Download"
+          title="CPU Load (TODO)"
           icon={
-            <Traffic
+            <DeveloperBoardOutlined
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
             />
           }
@@ -122,7 +139,7 @@ const Dashboard = () => {
         >
         </Box>
         <StatBox
-          title="Storage usage"
+          title="Storage usage (TODO)"
           //value={data }
           increase="+5%"
           description="In procentage"
@@ -133,7 +150,7 @@ const Dashboard = () => {
           }
         />
         <StatBox
-          title="RAM Usage"
+          title="RAM Usage (TODO)"
           isDashboard={true}
           description="In procentage"
           icon={
@@ -146,7 +163,7 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
+          gridColumn="span 9"
           gridRow="span 3"
           sx={{
             "& .MuiDataGrid-root": {
@@ -159,7 +176,7 @@ const Dashboard = () => {
             "& .MuiDataGrid-columnHeaders": {
               backgroundColor: theme.palette.background.alt,
               color: theme.palette.secondary[100],
-              borderBottom: "none",
+              borderBottom: "1px solid",
             },
             "& .MuiDataGrid-virtualScroller": {
               backgroundColor: theme.palette.background.alt,
@@ -172,20 +189,24 @@ const Dashboard = () => {
             "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
               color: `${theme.palette.secondary[200]} !important`,
             },
+            border: '1px solid rgba(0, 0, 0, 0.3)',
+            borderRadius: '16px',
+            boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.25)',
           }}
         >
           <DataGrid
-            loading={serviceIsLoading || !data}
+            loading={serviceIsLoading || !serviceData}
             rows={(serviceData) || []}
             columns={columnsDash}
           />
         </Box>
         <Box
-          gridColumn="span 4"
+          gridColumn="span 3"
           gridRow="span 3"
           backgroundColor={theme.palette.background.alt}
           p="1.5rem"
           borderRadius="0.55rem"
+          sx={{ border: '1px solid rgba(0, 0, 0, 0.3)', borderRadius: '16px', boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.25)', }}
         >
           <Typography variant="h4" sx={{ color: theme.palette.secondary[100] }}>
             System information
@@ -202,7 +223,7 @@ const Dashboard = () => {
             p="0.6rem 0.6rem"
             sx={{ color: theme.palette.secondary[100] }}
           >
-            BIOS Version: {(data && data.biosVersion) || ["unknown"]}
+            BIOS Version: {(systemData && systemData["BIOS Version"]) || ["unknown"]}
           </Typography>
           <Typography
             variant="h6"

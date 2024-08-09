@@ -21,14 +21,6 @@ export const api = createApi({
       query: (id) => `general/user/${id}`,
       providesTags: ["User"],
     }),
-    getProducts: build.query({
-      query: () => "client/products",
-      providesTags: ["Products"],
-    }),
-    getCustomers: build.query({
-      query: () => "client/customers",
-      providesTags: ["Customers"],
-    }),
     getTransactions: build.query({
       query: ({ page, pageSize, sort, search }) => ({
         url: "client/transactions",
@@ -40,10 +32,6 @@ export const api = createApi({
     getGeography: build.query({
       query: () => "client/geography",
       providesTags: ["Geography"],
-    }),
-    getSales: build.query({
-      query: () => "sales/sales",
-      providesTags: ["Sales"],
     }),
     getAdmins: build.query({
       query: () => "management/admins",
@@ -73,16 +61,17 @@ export const api = createApi({
       query: () => "general/system",
       providesTags: ["System"],
     }),
+    getAccounts: build.query({
+      query: () => "general/accounts",
+      providesTags: ["Accounts"],
+    }),
   }),
 });
 
 export const {
   useGetUserQuery,
-  useGetProductsQuery,
-  useGetCustomersQuery,
   useGetTransactionsQuery,
   useGetGeographyQuery,
-  useGetSalesQuery,
   useGetAdminsQuery,
   useGetUserPerformanceQuery,
   useGetDashboardQuery,
@@ -90,4 +79,5 @@ export const {
   useGetServiceQuery,
   useGetLogsQuery,
   useGetSystemQuery,
+  useGetAccountsQuery,
 } = api;

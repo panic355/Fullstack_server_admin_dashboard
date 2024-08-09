@@ -13,6 +13,8 @@ import Breakdown from "scenes/breakdown";
 import Terminal from "scenes/terminal";
 import Performance from "scenes/performance";
 import VirtualMachines from "scenes/virtualmachines";
+import Accounts from "scenes/accounts";
+import Network from "scenes/network";
 
 function App() {
   const mode = useSelector((state) => state.global.mode);
@@ -33,6 +35,8 @@ function App() {
               <Route path="/terminal" element={<Terminal />} />
               <Route path="/performance" element={<Performance />} />
               <Route path="/VMs" element={<VirtualMachines />} />
+              <Route path="/Accounts" element={<Accounts />} />
+              <Route path="/network" element={<Network />} />
             </Route>
           </Routes>
         </ThemeProvider>

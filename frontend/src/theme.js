@@ -1,5 +1,6 @@
 import { createContext, useState, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
+import { grey, blue } from '@mui/material/colors';
 
 // color design tokens export
 export const tokens = (mode) => ({
@@ -142,6 +143,10 @@ export const themeSettings = (mode) => {
             },
             background: {
               default: colors.primary[500],
+            },
+            text: {
+              primary: grey[300], // White text
+              secondary: grey[400],
             },
           }
         : {
