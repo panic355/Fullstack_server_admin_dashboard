@@ -22,8 +22,8 @@ def update_data():
     global data, previous_net_io
     while True:
         # Get CPU usage
-        data['cpu_usage'] = psutil.cpu_percent(interval=1)
-        
+        data['value'] = psutil.cpu_percent(interval=1)
+        data['unit'] = "%"
         # Get current network I/O statistics
         current_net_io = psutil.net_io_counters()
         

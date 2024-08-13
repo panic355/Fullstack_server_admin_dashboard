@@ -115,6 +115,7 @@ const Dashboard = () => {
         {/* ROW 1 */}
         <StatBox
           title="CPU Load (TODO)"
+          value={"CPU"}
           icon={
             <DeveloperBoardOutlined
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -137,6 +138,12 @@ const Dashboard = () => {
           p="1rem"
           borderRadius="0.55rem"
         >
+          <RealtimeGraph
+            url="http://localhost:6789/data"
+            series={cpuNetworkSeries}
+            pollingInterval={1000}
+            yAxisRange={yAxisRange}
+          />
         </Box>
         <StatBox
           title="Storage usage (TODO)"

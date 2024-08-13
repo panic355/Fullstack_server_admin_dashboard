@@ -72,8 +72,11 @@ return (
     p="1.25rem 1rem"
     flex="1 1 100%"
     backgroundColor={theme.palette.background.alt}
-    borderRadius="0.55rem"
-    border="0.5px solid"
+    sx={{
+        border: '1px solid rgba(0, 0, 0, 0.3)',
+        borderRadius: '16px',
+        boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.25)'
+      }}
   >
     <FlexBetween>
       <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
@@ -88,7 +91,7 @@ return (
       sx={{ color: theme.palette.secondary[200] }}
     >
     <Box m="1.5rem 2.5rem">
-        <Box height="75vh">
+        <Box height="17vh">
             {data ? (
                 <ResponsiveLine
                     data={chartData}
@@ -138,19 +141,20 @@ return (
                     axisRight={null}
                     axisBottom={{
                         orient: "bottom",
-                        tickSize: 5,
-                        tickPadding: 5,
+                        tickSize: 0,
+                        tickPadding: 0,
                         tickRotation: 0,
                         legend: "Time",
                         legendOffset: 60,
                         legendPosition: "36",
+                        tickValues: [],
                     }}
                     axisLeft={{
                         orient: "left",
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: 0,
-                        legend: "IO (Bytes) per second",
+                        legend: "IO (MB) pr. second",
                         legendOffset: -40,
                     }}
                     enableGridX={false}

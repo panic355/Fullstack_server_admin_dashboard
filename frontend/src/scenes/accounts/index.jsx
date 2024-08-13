@@ -4,7 +4,6 @@ import { useGetAccountsQuery } from "state/api";
 import { DataGrid } from "@mui/x-data-grid";
 import Header from "components/Header";
 import CustomColumnMenu from "components/DataGridCustomColumnMenu";
-import { ReactTerminal } from "react-terminal";
 
 const Accounts = () => {
     const theme = useTheme();
