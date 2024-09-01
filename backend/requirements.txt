@@ -1,0 +1,6 @@
+Flask
+psutil
+pamela  # For PAM authentication if needed
+paramiko  # For SSH management
+libvirt-python  # For managing virtual machines
+requests  # If you need to make HTTP requests

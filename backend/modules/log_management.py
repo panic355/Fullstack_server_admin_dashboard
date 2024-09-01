@@ -1,3 +1,4 @@
+from flask import Blueprint, request, jsonify
 import subprocess
 from datetime import datetime
 import time
@@ -5,6 +6,13 @@ import psutil
 import time
 
 logs = []
+
+# Define a blueprint for VM management
+log_management_bp = Blueprint('log_management', __name__)
+
+@log_management_bp.route('/logs/getall', methods=['GET'])
+def get_logs():
+    return jsonify(returnlogs()), 200
 
 def collect_and_print_systemd_logs(service, severity='INFO', since=None):
 
@@ -31,7 +39,6 @@ def collect_and_print_systemd_logs(service, severity='INFO', since=None):
             'severity': severity,
         }
         return log_entry
-
 
 def get_systemd_services():
         try:
@@ -66,4 +73,3 @@ def addID(logs):
     for i, log in enumerate(logs):
         log['id'] = i + 1
     return logs
-
